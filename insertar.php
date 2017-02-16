@@ -9,12 +9,14 @@ $database = new medoo([
 	'password' => 'root',
 	'charset' => 'utf8',
 ]);
- /*
-$database->insert("tb_personal", [
-	"nombre" => "foo",
-	"apellido" => "foo@bar.com",
-    "departamento" => "depto"
-]);*/
+
+       if($_POST){
+           $database->insert("tb_personal",[
+	"nombre" => $_POST["nombre"],
+	"apellido" => $_POST["apellido"],
+           "id_departamento"=> $_POST["departamento"]
+           ]);
+       } 
 
 ?>
 
@@ -48,11 +50,14 @@ $database->insert("tb_personal", [
         <td align="right">Departamento</td>
         <td align="left">
             <select name="departamento">
-				<option >Ingenieria Informatica</option>
-				<option >Derecho</option>
-				<option >Recursos Humanos</option>
-				<option >Medicina</option>
-				<option >Administracion</option>
+            
+            <?php 
+                $data = $database->select("tb_departamentos", "*");
+                $len = count($data);
+                for($i=0; $i<$len; $i++){
+                    echo"<option value='".$data[$i]["id_departamento"]."'>".$data[$i]["departamento"]."</option>";                 }
+                ?>
+				
             </select>
         </td>
             </tr>
@@ -66,14 +71,5 @@ $database->insert("tb_personal", [
         
         </table>
     </form>
-    <?php
-       if($_POST){
-           $database->insert("tb_personal",[
-	"nombre" => $_POST["nombre"],
-	"apellido" => $_POST["apellido"]]);
-           $database->insert("tb_departamento", ["departamento" => $_POST["departamento"]]);
-       } 
-
-        ?>
     </body>
 </html>

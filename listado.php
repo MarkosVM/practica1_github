@@ -9,7 +9,6 @@ $database = new medoo([
 	'charset' => 'utf8',
 ]);
     $data = $database->select("tb_personal", "*");
-    //$data = $database->select("tb_departamento", "*");
 ?>
 
 
@@ -22,9 +21,24 @@ $database = new medoo([
         
         <style>
             body{
-                background-color: darkslategrey;
+                background-color:black;
                 font-family: Arial;
                 font-size: 25px;
+                color: aliceblue;
+            }
+            a{
+                text-decoration: none;
+                color:darkred;
+                background-color:darkseagreen;
+                padding: 3px;
+                border-radius: 8px;
+                transition: 0.5s;
+                font-size: 14px;
+            }
+            a:hover{
+                background: red;
+                color: #FFF;
+                transition: 0.5s;
             }
         </style>
         
@@ -33,7 +47,7 @@ $database = new medoo([
             
             $len = count($data);
             for($i=0; $i<$len; $i++){
-                echo "<li>".$data[$i]["nombre"]." ".$data[$i]["apellido"]." "./*$data[$i]["departamento"].*/"</li>";
+                echo "<li>".$data[$i]["nombre"]." ".$data[$i]["apellido"]." ".$data[$i]["id_departamento"]."<a href='editar.php?id=".$data[$i]["id_personal"]."'>Editar</a> <a href='eliminar.php?id=".$data[$i]["id_personal"]."'>Eliminar</a></li>";
             }
             
             ?>
